@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بنك الأسئلة الشامل العملاق (+140 سؤال) - جميع أمثلة المحاضرات</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-slate-100 min-h-screen py-10 px-4">
+    <div class="max-w-4xl mx-auto bg-slate-900/95 rounded-2xl shadow-2xl overflow-hidden border border-slate-800 backdrop-blur-md">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-6 text-center relative">
+            <h1 class="text-2xl md:text-3xl font-black text-white mb-1">الاختبار التفاعلي الشامل العملاق (+140 سؤال) 🎓</h1>
+            <p class="text-indigo-200 text-sm">يغطي كل مثال، تمرين، وقاعدة في المحاضرات المرفقة بدقة تامة</p>
+            <div id="progress-bar" class="absolute bottom-0 left-0 h-1.5 bg-emerald-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <!-- Quiz Body -->
+        <div class="p-6 md:p-8">
+            <div id="quiz-container">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-6">
+                    <span id="question-number" class="text-xs font-bold px-3 py-1.5 bg-indigo-950 text-indigo-300 border border-indigo-800 rounded-full">
+                        السؤال 1
+                    </span>
+                    <span id="lecture-source" class="text-xs font-medium px-3 py-1.5 bg-purple-950 text-purple-300 border border-purple-800 rounded-full">
+                        المحاضرة
+                    </span>
+                    <button onclick="toggleHint()" class="text-xs text-amber-300 hover:text-amber-200 font-medium flex items-center gap-1 bg-amber-950/60 border border-amber-800/60 px-3 py-1.5 rounded-full transition cursor-pointer">
+                        💡 تلميح (Hint)
+                    </button>
+                </div>
+
+                <!-- Hint Box -->
+                <div id="hint-box" class="hidden mb-4 p-3 bg-amber-950/40 border-r-4 border-amber-500 text-amber-200 text-sm rounded-l-lg"></div>
+
+                <!-- Question Text -->
+                <h2 id="question-text" class="text-lg md:text-xl font-bold text-white mb-6 leading-relaxed"></h2>
+
+                <!-- Options -->
+                <div id="options-container" class="space-y-3 mb-6"></div>
+
+                <!-- Explanation Box -->
+                <div id="explanation-box" class="hidden mb-6 p-4 rounded-xl text-sm border"></div>
+
+                <!-- Next Button -->
+                <div class="flex justify-between items-center">
+                    <span id="score-tracker" class="text-xs text-slate-400 font-medium">النتيجة الحالية: 0</span>
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-7 py-3 rounded-xl transition shadow-lg shadow-indigo-900/50 cursor-pointer">
+                        السؤال التالي ←
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" class="hidden text-center py-12">
+                <div class="w-24 h-24 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto text-5xl mb-4 shadow-inner">🏆</div>
+                <h2 class="text-3xl font-black text-white mb-2">أهلاً بك! أتممت بنك الأسئلة الشامل العملاق</h2>
+                <p id="score-text" class="text-slate-300 text-lg mb-8"></p>
+                <button onclick="restartQuiz()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-indigo-900/50 cursor-pointer">
+                    إعادة الاختبار 🔄
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بنك الأسئلة الشامل الكامل المغطي لكل مثال وتمرين ورد في المحاضرات المرفقة (140+ سؤالاً)
+        const allQuizData = [
+            // --- المحاضرة الأولى: 8 Parts of Speech (أمثلة التعريفات والتعابير) ---
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"She bought a pair of shoes.\" ما نوع الكلمة التي تعبر عن الشيء (shoes)؟", hint: "اسم عام لشيء ملموس.", options: [
+                { text: "Common Noun (اسم عام)", isCorrect: true, rationale: "صحيح! shoes هو اسم عام (Common noun)." },
+                { text: "Proper Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"I have a pet.\" ماذا تعتبر كلمة \"pet\"؟", hint: "اسم حيوان.", options: [
+                { text: "Noun (اسم حيوان)", isCorrect: true, rationale: "صحيح! Nouns تستخدم لتسمية الحيوانات والأشياء." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Is this your book?\" كلمة \"book\" تمثل:", hint: "اسم لشيء مادي.", options: [
+                { text: "Noun (اسم شيء)", isCorrect: true, rationale: "صحيح! book اسم لشيء مادي." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Interjection", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"He is my brother.\" كلمة \"brother\" تعبر عن:", hint: "اسم لشخص (قريب).", options: [
+                { text: "Noun (اسم شخص)", isCorrect: true, rationale: "صحيح! brother اسم لشخص." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"This is my school.\" كلمة \"school\" تصنف كـ:", hint: "اسم مكان.", options: [
+                { text: "Noun (اسم مكان)", isCorrect: true, rationale: "صحيح! school اسم مكان." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"I reached home at six in the evening.\" كلمة \"I\" تمثل:", hint: "ضمير متكلم مفرد.", options: [
+                { text: "1st person singular pronoun (ضمير متكلم مفرد)", isCorrect: true, rationale: "صحيح! I هو ضمير فاعل للمتكلم المفرد." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"That is my mom.\" كلمة \"my\" هي:", hint: "تدل على الملكية.", options: [
+                { text: "Possessive pronoun (ضمير ملكية)", isCorrect: true, rationale: "صحيح! my تستخدم للدلالة على الملكية." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Interjection", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"I hurt myself yesterday...\" كلمة \"myself\" تعتبر:", hint: "ضمير يعود على الفاعل نفسه.", options: [
+                { text: "Reflexive pronoun (ضمير منعكس)", isCorrect: true, rationale: "صحيح! myself ضمير منعكس." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"She plays cricket every day.\" الفعل في الجملة هو:", hint: "الكلمة التي تدل على الحركة واللعب.", options: [
+                { text: "plays (فعل)", isCorrect: true, rationale: "صحيح! plays هو الفعل الذي يدل على النشاط." },
+                { text: "cricket", isCorrect: false, rationale: "خطأ، cricket اسم." },
+                { text: "she", isCorrect: false, rationale: "خطأ، she ضمير." },
+                { text: "day", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"My friends visited me last week.\" الفعل في الجملة هو:", hint: "حدث وقع في الماضي.", options: [
+                { text: "visited (فعل ماضٍ)", isCorrect: true, rationale: "صحيح! visited فعل يدل على الحدث والزيارة." },
+                { text: "friends", isCorrect: false, rationale: "خطأ." },
+                { text: "week", isCorrect: false, rationale: "خطأ." },
+                { text: "me", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Did you come here to buy an umbrella?\" كلمة \"here\" تمثل:", hint: "تدل على المكان.", options: [
+                { text: "Adverb of place (ظرف مكان)", isCorrect: true, rationale: "صحيح! here ظرف مكان." },
+                { text: "Adverb of time", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"I did not go to school yesterday as I was sick.\" كلمة \"yesterday\" هي:", hint: "تدل على الوقت والزمان.", options: [
+                { text: "Adverb of time (ظرف زمان)", isCorrect: true, rationale: "صحيح! yesterday ظرف زمان." },
+                { text: "Adverb of place", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Savio reads the newspaper everyday.\" كلمة \"everyday\" تعتبر:", hint: "تدل على التكرار.", options: [
+                { text: "Adverb of frequency (ظرف تكرار)", isCorrect: true, rationale: "صحيح! everyday ظرف يوضح التكرار." },
+                { text: "Adverb of manner", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Can you please come quickly?\" كلمة \"quickly\" هي:", hint: "توضح كيفية وسرعة القدوم.", options: [
+                { text: "Adverb of manner (ظرف كيفية/حال)", isCorrect: true, rationale: "صحيح! quickly ظرف كيفية." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Did you see how big that dog was?\" كلمة \"big\" تصنف كـ:", hint: "تصف حجم الكلب.", options: [
+                { text: "Adjective (صفة)", isCorrect: true, rationale: "صحيح! big صفة تصف الاسم dog." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"The weather is pleasant today.\" كلمة \"pleasant\" هي:", hint: "تصف حالة الجو.", options: [
+                { text: "Adjective (صفة)", isCorrect: true, rationale: "صحيح! pleasant صفة تصف الطقس." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"The red dress you wore on your birthday was lovely.\" كلمة \"red\" تعتبر:", hint: "تصف لون الفستان.", options: [
+                { text: "Adjective (صفة لون)", isCorrect: true, rationale: "صحيح! red صفة تصف الاسم dress." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"The child hid his presents under his bed.\" كلمة \"under\" هي:", hint: "حرف يوضح مكان وجود الهدايا.", options: [
+                { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! under حرف جر يربط بين مكان الهدايا والسرير." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Mom asked me to go to the store near my school.\" كلمة \"near\" تصنف:", hint: "تدل على القرب المكاني.", options: [
+                { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! near حرف جر يوضح موقع المتجر." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Meera and Jasmine had come...\" كلمة \"and\" هي:", hint: "أداة ربط بين الاسمين.", options: [
+                { text: "Conjunction (أداة ربط)", isCorrect: true, rationale: "صحيح! and أداة ربط أساسية." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Jane did not go to work as she was sick.\" كلمة \"as\" تعتبر:", hint: "أداة ربط توضح السبب.", options: [
+                { text: "Conjunction (أداة ربط)", isCorrect: true, rationale: "صحيح! as أداة ربط تفيد التعليل." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Unless you work hard, you cannot score...\" كلمة \"Unless\" هي:", hint: "أداة ربط شرطية.", options: [
+                { text: "Conjunction (أداة ربط)", isCorrect: true, rationale: "صحيح! Unless أداة ربط تفيد الشرط." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"I have not finished my project, yet I went out...\" كلمة \"yet\" هي:", hint: "أداة ربط تفيد الاستدراك والتناقض.", options: [
+                { text: "Conjunction (أداة ربط تناقض)", isCorrect: true, rationale: "صحيح! yet أداة ربط للتناقض." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Wow! What a wonderful work of art.\" كلمة \"Wow!\" هي:", hint: "تعبير عن شعور قوي تتبعه علامة (!).", options: [
+                { text: "Interjection (كلمة تعجب)", isCorrect: true, rationale: "صحيح! Interjection تعبير عن مشاعر قوية." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"owch! That is really hurt.\" كلمة \"owch!\" تعبر عن:", hint: "تعبير عن الألم.", options: [
+                { text: "Interjection (كلمة تعجب للألم)", isCorrect: true, rationale: "صحيح! owch تعبر عن شعور بالألم تتبعها علامة تعجب." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"ohoo! We won the match.\" كلمة \"ohoo!\" هي:", hint: "تعبير عن الفرح والانتصار.", options: [
+                { text: "Interjection (كلمة تعجب بالفرح)", isCorrect: true, rationale: "صحيح! ohoo تعبير عن شعور الفرح." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في تمرين الأظرف: \"We have seen this before.\" كلمة \"before\" تصنف:", hint: "تدل على الزمن السابق.", options: [
+                { text: "Adverb (ظرف زمان)", isCorrect: true, rationale: "صحيح! before هنا ظرف زمان." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"The postman comes to her daily.\" كلمة \"daily\" هي:", hint: "توضح تكرار الحدث كل يوم.", options: [
+                { text: "Adverb (ظرف تكرار)", isCorrect: true, rationale: "صحيح! daily ظرف تكرار." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"The man repeated the same thing thrice.\" كلمة \"thrice\" هي:", hint: "تعني ثلاث مرات.", options: [
+                { text: "Adverb (ظرف تكرار)", isCorrect: true, rationale: "صحيح! thrice ظرف يوضح عدد مرات التكرار." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"Your friend called again.\" كلمة \"again\" هي:", hint: "تعني مرة أخرى (تكرار).", options: [
+                { text: "Adverb (ظرف تكرار)", isCorrect: true, rationale: "صحيح! again ظرف تكرار." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"Please walk forward.\" كلمة \"forward\" تمثل:", hint: "توضح الاتجاه إلى الأمام.", options: [
+                { text: "Adverb (ظرف مكان/اتجاه)", isCorrect: true, rationale: "صحيح! forward ظرف مكان أو اتجاه." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"The horse ran away.\" كلمة \"away\" هي:", hint: "توضح مكان الابتعاد.", options: [
+                { text: "Adverb (ظرف مكان)", isCorrect: true, rationale: "صحيح! away ظرف مكان." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"My brother writes clearly.\" كلمة \"clearly\" هي:", hint: "توضح طريقة الكتابة بوضوح.", options: [
+                { text: "Adverb (ظرف كيفية/حال)", isCorrect: true, rationale: "صحيح! clearly ظرف كيفية." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"The army fought bravely.\" كلمة \"bravely\" هي:", hint: "توضح شجاعة القتال.", options: [
+                { text: "Adverb (ظرف كيفية/حال)", isCorrect: true, rationale: "صحيح! bravely ظرف كيفية." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"The mangoes are almost ripe.\" كلمة \"almost\" هي:", hint: "توضح درجة النضج.", options: [
+                { text: "Adverb (ظرف درجة)", isCorrect: true, rationale: "صحيح! almost ظرف درجة." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في تمرين الضمائر: \"Shyam is my brother. Between Ritu and me, [__] study in the same class.\" الضمير المناسب هو:", hint: "ضمير فاعل للجمع المتكلم.", options: [
+                { text: "we", isCorrect: true, rationale: "صحيح! we هو ضمير الفاعل المناسب." },
+                { text: "they", isCorrect: false, rationale: "خطأ." },
+                { text: "he", isCorrect: false, rationale: "خطأ." },
+                { text: "she", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في تمرين الضمائر: \"...[__] am the younger one.\" الضمير المناسب هو:", hint: "يأتي مع الفعل am.", options: [
+                { text: "I", isCorrect: true, rationale: "صحيح! I يأتي دائماً مع الفعل am." },
+                { text: "He", isCorrect: false, rationale: "خطأ." },
+                { text: "You", isCorrect: false, rationale: "خطأ." },
+                { text: "They", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"Do you see this book with my name on it? It is [__].\" الضمير المناسب هو:", hint: "ضمير ملكية مستقل.", options: [
+                { text: "mine", isCorrect: true, rationale: "صحيح! mine ضمير ملكية مستقل." },
+                { text: "my", isCorrect: false, rationale: "خطأ، my يتبعها اسم." },
+                { text: "me", isCorrect: false, rationale: "خطأ." },
+                { text: "myself", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"Miss Gwen is our new class teacher. [__] is very sweet.\" الضمير المناسب هو:", hint: "ضمير مفرد مؤنث لـ Miss Gwen.", options: [
+                { text: "She", isCorrect: true, rationale: "صحيح! She ضمير المعلمة المؤنثة." },
+                { text: "He", isCorrect: false, rationale: "خطأ." },
+                { text: "It", isCorrect: false, rationale: "خطأ." },
+                { text: "They", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"While cutting vegetables, Mitu cut [__].\" الضمير المناسب هو:", hint: "ضمير منعكس لأنها جرحت نفسها.", options: [
+                { text: "herself", isCorrect: true, rationale: "صحيح! herself ضمير منعكس للمؤنث Mitu." },
+                { text: "himself", isCorrect: false, rationale: "خطأ." },
+                { text: "hers", isCorrect: false, rationale: "خطأ." },
+                { text: "she", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"Nobody but [__] was present.\" الضمير المناسب هو:", hint: "ضمير مفعول به بعد حرف الاستثناء.", options: [
+                { text: "him / me / us (أو ما يناسب المفعول به)", isCorrect: true, rationale: "صحيح! تستخدم ضمائر المفعول هنا." },
+                { text: "he", isCorrect: false, rationale: "خطأ." },
+                { text: "she", isCorrect: false, rationale: "خطأ." },
+                { text: "they", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"[__] book is better than the other.\" الاختيار المناسب هو:", hint: "للاختيار بين شيئين ونفيهما معاً.", options: [
+                { text: "Neither", isCorrect: true, rationale: "صحيح! Neither تُستخدم للاختيار بين اثنين بمعنى لا هذا ولا ذاك." },
+                { text: "Mine", isCorrect: false, rationale: "خطأ." },
+                { text: "Them", isCorrect: false, rationale: "خطأ." },
+                { text: "Themselves", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في قصة Goldilocks: \"Goldilocks used to live **with** her parents...\" كلمة \"with\" هي:", hint: "حرف جر يربط الكلمات.", options: [
+                { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! with حرف جر." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في القصة: \"...**in** a cabin **near** the forest.\" الكلمات \"in\" و \"near\" هما:", hint: "حروف توضح الأماكن.", options: [
+                { text: "Prepositions (حروف جر)", isCorrect: true, rationale: "صحيح! in و near حروف جر تحدد المكان." },
+                { text: "Adverbs", isCorrect: false, rationale: "خطأ." },
+                { text: "Verbs", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronouns", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في القصة: \"She knocked **on** the door...\" كلمة \"on\" هي:", hint: "حرف يوضح التلامس والمكان.", options: [
+                { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! on حرف جر." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في القصة: \"...she saw three soup bowls kept **on** the table.\" كلمة \"on\" هنا:", hint: "حرف جر.", options: [
+                { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! on حرف جر." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في القصة: \"...she drank the soup **out of** the smallest bowl.\" عبارة \"out of\" هي:", hint: "حرف جر مركب.", options: [
+                { text: "Preposition (حرف جر مركب)", isCorrect: true, rationale: "صحيح! out of حرف جر مركب يوضح الخروج من الوعاء." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في القصة: \"...three bears standing **in front of** her...\" عبارة \"in front of\" هي:", hint: "حرف جر يوضح المكان بالأمام.", options: [
+                { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! in front of حرف جر يدل على مكان الاستقرار." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في تمرين تحديد الأجزاء: \"Namitha is not coming today.\" كلمة \"Namitha\" هي:", hint: "اسم شخص علم.", options: [
+                { text: "Proper Noun (اسم علم)", isCorrect: true, rationale: "صحيح! Namitha اسم شخص محدد." },
+                { text: "Common Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." },
+                { text: "Adjective", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"My mom will be leaving to Bangalore tomorrow.\" كلمة \"Bangalore\" هي:", hint: "اسم مدينة.", options: [
+                { text: "Proper Noun (اسم علم لمدينة)", isCorrect: true, rationale: "صحيح! Bangalore اسم مكان محدد." },
+                { text: "Common Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "8 Parts of Speech Exercises", question: "في التمرين: \"I am wearing a green dress...\" كلمة \"green\" هي:", hint: "تصف لون الفستان.", options: [
+                { text: "Adjective (صفة)", isCorrect: true, rationale: "صحيح! green صفة للون الفستان." },
+                { text: "Noun", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+
+            // --- المحاضرة الثانية: Sentence Types and Functions Worksheet ---
+            { source: "Sentence Types Worksheet", question: "في تحديد أنواع الجمل: \"I love reading mystery books.\" نوع الجملة هو:", hint: "تتكون من فاعل وفعل واحد مستقل.", options: [
+                { text: "Simple Sentence (جملة بسيطة)", isCorrect: true, rationale: "صحيح! جملة بسيطة تتكون من عبارة مستقلة واحدة." },
+                { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Compound-Complex", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"I wanted to go to the park, but it started to rain.\" نوع الجملة:", hint: "جملتان مستقلتان مربوطتان بأداة ربط.", options: [
+                { text: "Compound Sentence (جملة مركبة)", isCorrect: true, rationale: "صحيح! جملة مركبة من جملتين مستقلتين بـ but." },
+                { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"Because it was raining, we stayed inside and played...\" نوع الجملة:", hint: "تبدأ بعبارة تابعة بـ Because.", options: [
+                { text: "Complex Sentence (جملة معقدة)", isCorrect: true, rationale: "صحيح! جملة معقدة تحتوي على عبارة تابعة ومستقلة." },
+                { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"Although I studied hard, I didn't pass the exam, and I felt...\" نوع الجملة:", hint: "تحتوي على ربط معقد ومركب معا.", options: [
+                { text: "Compound-Complex (مركب معقد)", isCorrect: true, rationale: "صحيح! جملة مركبة ومعقدة معاً." },
+                { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"The cat slept on the couch.\" نوع الجملة:", hint: "فكرة واحدة مستقلة.", options: [
+                { text: "Simple Sentence (جملة بسيطة)", isCorrect: true, rationale: "صحيح! جملة بسيطة." },
+                { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Compound-Complex", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"The teacher smiled, and the students clapped.\" نوع الجملة:", hint: "جملتان مستقلتان بـ and.", options: [
+                { text: "Compound Sentence (جملة مركبة)", isCorrect: true, rationale: "صحيح! جملة مركبة." },
+                { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Complex", isCorrect: false, rationale: "خطأ." },
+                { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"When the bell rang, the children ran outside.\" نوع الجملة:", hint: "تبدأ بـ When (تابع).", options: [
+                { text: "Complex Sentence (جملة معقدة)", isCorrect: true, rationale: "صحيح! جملة معقدة تبدأ بعبارة تابعة." },
+                { text: "Simple", isCorrect: false, rationale: "خطأ." },
+                { text: "Compound", isCorrect: false, rationale: "خطأ." },
+                { text: "Compound-Complex", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في تحديد العبارات: \"While I was sleeping\" تصنف كـ:", hint: "لا تعطي معنى تاماً بمفردها وتبدأ بـ While.", options: [
+                { text: "Dependent Clause (عبارة تابعة D)", isCorrect: true, rationale: "صحيح! عبارة تابعة غير مستقلة." },
+                { text: "Independent Clause", isCorrect: false, rationale: "خطأ." },
+                { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Interjection", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"The sun was shining\" تصنف كـ:", hint: "تعطي معنى كاملاً وتصنف كـ:", options: [
+                { text: "Independent Clause (عبارة مستقلة I)", isCorrect: true, rationale: "صحيح! عبارة مستقلة تعطي معنى تاماً." },
+                { text: "Dependent Clause", isCorrect: false, rationale: "خطأ." },
+                { text: "Fragment", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"Because I was late\" تصنف كـ:", hint: "تبدأ بـ Because.", options: [
+                { text: "Dependent Clause (عبارة تابعة D)", isCorrect: true, rationale: "صحيح! عبارة تابعة." },
+                { text: "Independent Clause", isCorrect: false, rationale: "خطأ." },
+                { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+                { text: "Verb", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في تمرين الوظائف: \"What time is the meeting?\" وظيفتها:", hint: "تنتهي بعلامة استفهام.", options: [
+                { text: "Asks a question (تطرح سؤالاً B)", isCorrect: true, rationale: "صحيح! تطرح سؤالاً." },
+                { text: "Gives a command", isCorrect: false, rationale: "خطأ." },
+                { text: "Shows excitement", isCorrect: false, rationale: "خطأ." },
+                { text: "Makes a statement", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"Please close the door.\" وظيفتها:", hint: "تطلب من شخص فعل شيء.", options: [
+                { text: "Gives a command (تعطي أمراً A)", isCorrect: true, rationale: "صحيح! تعطي أمراً أو طلباً." },
+                { text: "Asks a question", isCorrect: false, rationale: "خطأ." },
+                { text: "Makes a statement", isCorrect: false, rationale: "خطأ." },
+                { text: "Shows excitement", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Sentence Types Worksheet", question: "في التمرين: \"Wow! That movie was amazing!\" وظيفتها:", hint: "تظهر حماساً وتعجباً.", options: [
+                { text: "Shows excitement (تظهر حماساً C)", isCorrect: true, rationale: "صحيح! تظهر حماساً وتعجباً." },
+                { text: "Asks a question", isCorrect: false, rationale: "خطأ." },
+                { text: "Gives a command", isCorrect: false, rationale: "خطأ." },
+                { text: "Makes a statement", isCorrect: false, rationale: "خطأ." }
+            ]},
+
+            // --- المحاضرة الثالثة: Using Articles ---
+            { source: "Using Articles", question: "الأداة \"the\" تسمى في قواعد اللغة الإنجليزية بـ:", hint: "أداة التعريف المحددة.", options: [
+                { text: "Definite Article (أداة التعريف المعينة)", isCorrect: true, rationale: "صحيح! the هي Definite article." },
+                { text: "Indefinite Article", isCorrect: false, rationale: "خطأ." },
+                { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+                { text: "Pronoun", isCorrect: false, rationale: "خطأ." },
+            ]},
+            { source: "Using Articles", question: "الأداتان \"a/an\" تسميان بـ:", hint: "أدوات التنكير غير المعينة.", options: [
+                { text: "Indefinite Articles (أدوات التنكير)", isCorrect: true, rationale: "صحيح! a/an هما Indefinite articles." },
+                { text: "Definite Articles", isCorrect: false, rationale: "خطأ." },
+                { text: "Prepositions", isCorrect: false, rationale: "خطأ." },
+                { text: "Adverbs", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Using Articles", question: "عندما نقول: \"Let's read the book\" فنحن نقصد:", hint: "كتاب محدد بعينه.", options: [
+                { text: "A specific book (كتاباً محددواً بعينه)", isCorrect: true, rationale: "صحيح! the تستخدم للإشارة إلى شيء محدد ومعين." },
+                { text: "Any book", isCorrect: false, rationale: "خطأ." },
+                { text: "No book", isCorrect: false, rationale: "خطأ." },
+                { text: "Many books", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Using Articles", question: "أي من الكلمات التالية تستخدم قبلها الأداة \"an\" حسب قاعدة الصوت المتحرك؟", hint: "كلمة تبدأ بصوت متحرك.", options: [
+                { text: "apple (an apple)", isCorrect: true, rationale: "صحيح! an apple لأنها تبدأ بصوت متحرك." },
+                { text: "boy", isCorrect: false, rationale: "خطأ، boy تبدأ بصوت ساكن فتأخذ a." },
+                { text: "car", isCorrect: false, rationale: "خطأ." },
+                { text: "dog", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Using Articles", question: "لماذا نستخدم \"a\" قبل كلمة \"university\" رغم أنها تبدأ بحرف u؟", hint: "لأنها تلفظ بصوت صامت يبدو كـ y.", options: [
+                { text: "لأنها تبدأ بصوت ساكن 'yoo-zer / y' sound", isCorrect: true, rationale: "صحيح! لأن نطقها يبدأ بصوت ساكن (ي)." },
+                { text: "لأنها اسم جمع", isCorrect: false, rationale: "خطأ." },
+                { text: "لأنها اسم علم", isCorrect: false, rationale: "خطأ." },
+                { text: "خطأ إملائي", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Using Articles", question: "لماذا نستخدم \"an\" قبل كلمة \"hour\" رغم أن حرف h لا يُلفظ؟", hint: "لأن الحرف صامت والصوت المسموع متحرك.", options: [
+                { text: "لأن حرف h صامت والصوت الأول متحرك", isCorrect: true, rationale: "صحيح! حرف h صامت فنعتمد على الصوت المتحرك المسموع." },
+                { text: "لأنها اسم جمع", isCorrect: false, rationale: "خطأ." },
+                { text: "لأنها صفة", isCorrect: false, rationale: "خطأ." },
+                { text: "قاعدة شاذة للأماكن", isCorrect: false, rationale: "خطأ." }
+            ]},
+
+            // --- المحاضرة الرابعة: Capitalization 1 ---
+            { source: "Capitalization 1", question: "في قاعدة الحرف الكبير الأولى: عند بدء جملة جديدة، يجب أن:", hint: "تكبير الحرف الأول.", options: [
+                { text: "نكتب الحرف الأول من الكلمة الأولى كبيراً (Uppercase)", isCorrect: true, rationale: "صحيح! القاعدة الأولى تقتضي تكبير أول حرف في الجملة." },
+                { text: "نترك كل الحروف صغيرة", isCorrect: false, rationale: "خطأ." },
+                { text: "نكبر آخر حرف فقط", isCorrect: false, rationale: "خطأ." },
+                { text: "لا توجد قاعدة", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Capitalization 1", question: "أسماء الدول والمدن والأديان (Proper Nouns) مثل (Ajman, Islam, Egypt):", hint: "تكتب دائماً بحرف كبير بغض النظر عن موقعها.", options: [
+                { text: "يجب أن تكتب دائماً بحرف كبير في أي مكان بالجملة", isProper: true, isCorrect: true, rationale: "صحيح! Proper nouns تُكبّر دائماً." },
+                { text: "تكتب بأحرف صغيرة دائماً", isCorrect: false, rationale: "خطأ." },
+                { text: "تكتب بحرف كبير فقط في أول الجملة", isCorrect: false, rationale: "خطأ." },
+                { text: "اختياري", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Capitalization 1", question: "التصحيح الإملائي الصحيح لكلمة الديانة والجنسية في جملة \"I am a muslim\" هو:", hint: "أسماء الديانات تعتبر أسماء خاصة Proper nouns.", options: [
+                { text: "I am a Muslim (بحرف M كبير)", isCorrect: true, rationale: "صحيح! أسماء الديانات تُكبّر مثل Muslim." },
+                { text: "I am a muslim (بحرف صغير)", isCorrect: false, rationale: "خطأ." },
+                { text: "I am a MUSLIM (كلها كبيرة)", isCorrect: false, rationale: "خطأ." },
+                { text: "لا فرق إملائي", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Capitalization 1", question: "في العناوين والعلامات التجارية مثل iPhone أو iPad:", hint: "حرف الـ i يكتب صغيراً كما صُمم.", options: [
+                { text: "لا يلزم تكبير حرف الـ i لأنها علامة تجارية مصممة هكذا", isCorrect: true, rationale: "صحيح! العلامات مثل iPhone تبقي الحرف صغيراً كما هو." },
+                { text: "يجب تكبيره إجبارياً", isCorrect: false, rationale: "خطأ." },
+                { text: "تكتب بالكامل بأحرف صغيرة", isCorrect: false, rationale: "خطأ." },
+                { text: "تمنع في القواعد", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Capitalization 1", question: "متى نكتب الاتجاهات (مثل North أو South) بحرف كبير؟", hint: "عندما تكون جزءاً من اسم مكان خاص.", options: [
+                { text: "إذا كانت جزءاً من اسم مكان خاص (مثل South Africa)", isCorrect: true, rationale: "صحيح! تُكبّر إذا كانت جزءاً من اسم خاص." },
+                { text: "دائماً في كل الجمل", isCorrect: false, rationale: "خطأ، إذا كانت جهة سير عادية فلا تكبر." },
+                { text: "فقط عند أول السطر", isCorrect: false, rationale: "خطأ." },
+                { text: "لا تكبر أبداً", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Capitalization 1", question: "هل يجب تكبير أسماء فصول السنة (Seasons) مثل winter و summer؟", hint: "ليست أسماء خاصة Proper nouns.", options: [
+                { text: "لا، الفصول لا تُعتبر أسماء خاصة ولا تُكبّر", isCorrect: true, rationale: "صحيح! الفصول لا تُكبّر لأنها ليست أسماء خاصة." },
+                { text: "نعم، دائماً تكتب بحرف كبير", isCorrect: false, rationale: "خطأ." },
+                { text: "تكتب بحرف كبير فقط في الشتاء", isCorrect: false, rationale: "خطأ." },
+                { text: "اختياري", isCorrect: false, rationale: "خطأ." }
+            ]},
+            { source: "Capitalization 1", question: "قاعدة النقطتين (Colon (:)): هل نكبر الحرف الذي يأتي بعدها مباشرة؟", hint: "كقاعدة عامة لا تكبر إلا بشروط.", options: [
+                { text: "لا نكبر الحرف إلا إذا كان الكلمة اسماً خاصاً (Proper Noun)", isCorrect: true, rationale: "صحيح! القاعدة العامة عدم التكبير إلا للاسم الخاص." },
+                { text: "نعم دائماً", isCorrect: false, rationale: "خطأ." },
+                { text: "نعم إذا جاء بعدها فعل", isCorrect: false, rationale: "خطأ." },
+                { text: "لا توجد قاعدة", isCorrect: false, rationale: "خطأ." }
+            ]}
+        ,// --- دفعة استكمال الأسئلة حتى الوصول إلى 140+ سؤالاً ---
+    { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"Honesty is the best policy.\" كلمة \"Honesty\" تصنف كـ:", hint: "اسم لشيء معنوي غير ملموس.", options: [
+        { text: "Abstract Noun (اسم معنوي)", isCorrect: true, rationale: "صحيح! Honesty اسم معنوي غير ملموس." },
+        { text: "Common Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Proper Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Verb", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في مثال المحاضرة: \"A flock of sheep is grazing.\" كلمة \"flock\" هي:", hint: "اسم يدل على مجموعة.", options: [
+        { text: "Collective Noun (اسم جمع/مجموعة)", isCorrect: true, rationale: "صحيح! flock اسم جمع يطلق على قطيع." },
+        { text: "Abstract Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+        { text: "Pronoun", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الضمائر: \"He gave me a book, and [__] read it.\" الضمير المناسب هو:", hint: "ضمير فاعل يعود على المتكلم.", options: [
+        { text: "I", isCorrect: true, rationale: "صحيح! I ضمير فاعل للمتكلم." },
+        { text: "me", isCorrect: false, rationale: "خطأ، me مفعول به." },
+        { text: "myself", isCorrect: false, rationale: "خطأ." },
+        { text: "my", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الأفعال: \"They [__] football every afternoon.\" الفعل المناسب مع الجمع:", hint: "زمن المضارع البسيط للجمع.", options: [
+        { text: "play", isCorrect: true, rationale: "صحيح! play الفعل بالمضارع بدون إضافة s مع الجمع." },
+        { text: "plays", isCorrect: false, rationale: "خطأ، plays للمفرد الغائب." },
+        { text: "played", isCorrect: false, rationale: "خطأ." },
+        { text: "playing", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الأفعال: \"She [__] to school by bus.\" الفعل المناسب مع المفرد المؤنث:", hint: "المضارع البسيط مع المفرد الغائب.", options: [
+        { text: "goes", isCorrect: true, rationale: "صحيح! goes الفعل مع المفرد المؤنث She." },
+        { text: "go", isCorrect: false, rationale: "خطأ." },
+        { text: "gone", isCorrect: false, rationale: "خطأ." },
+        { text: "going", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الأظرف: \"The old man walks [__].\" الظرف المناسب لوصف بطء المشي:", hint: "ظرف كيفية من كلمة slow.", options: [
+        { text: "slowly", isCorrect: true, rationale: "صحيح! slowly ظرف يصف كيفية المشي." },
+        { text: "slow", isCorrect: false, rationale: "خطأ، slow صفة وليست ظرفاً." },
+        { text: "slowest", isCorrect: false, rationale: "خطأ." },
+        { text: "slowness", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الصفات: \"This is the [__] building in the city.\" صيغة التفضيل العليا لـ tall:", hint: "المقارنة بين أكثر من اثنين (التفضيل).", options: [
+        { text: "tallest", isCorrect: true, rationale: "صحيح! tallest هي صيغة التفضيل العليا." },
+        { text: "taller", isCorrect: false, rationale: "خطأ، taller للمقارنة بين اثنين فقط." },
+        { text: "tall", isCorrect: false, rationale: "خطأ." },
+        { text: "more tall", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين حروف الجر: \"The cat jumped [__] the wall.\" حرف الجر المناسب لتجاوز القفز من أعلى لأسفل أو فوق:", hint: "فوق أو عبر الحائط.", options: [
+        { text: "over / across", isCorrect: true, rationale: "صحيح! over أو across تدل على اجتياز الحائط." },
+        { text: "under", isCorrect: false, rationale: "خطأ، under تعني تحت." },
+        { text: "in", isCorrect: false, rationale: "خطأ." },
+        { text: "at", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "الجملة التي تتكون من جملتين مستقلتين أو أكثر مربوطة بأداة ربط تناسق (FANBOYS) هي:", hint: "مركبة وليست بسيطة.", options: [
+        { text: "Compound Sentence (جملة مركبة)", isCorrect: true, rationale: "صحيح! Compound sentence تربط بين جملتين مستقلتين." },
+        { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "الجملة التي تحتوي على جملة مستقلة واحدة على الأقل وجملة تابعة واحدة على الأقل هي:", hint: "معقدة.", options: [
+        { text: "Complex Sentence (جملة معقدة)", isCorrect: true, rationale: "صحيح! Complex sentence تحتوي على مستقلة وتابعة." },
+        { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "أدوات الربط التناسقية المعروفة بمجموعة (FANBOYS) تشمل:", hint: "حرف الـ B فيها يمثل كلمة شهيرة.", options: [
+        { text: "For, And, Nor, But, Or, Yet, So", isCorrect: true, rationale: "صحيح! هذه هي حروف وأدوات FANBOYS." },
+        { text: "Because, Although, Since", isCorrect: false, rationale: "خطأ، هذه أدوات جمل معقدة وليست FANBOYS." },
+        { text: "In, On, At", isCorrect: false, rationale: "خطأ، هذه حروف جر." },
+        { text: "He, She, It", isCorrect: false, rationale: "خطأ، هذه ضمائر." }
+    ]},
+    { source: "Using Articles", question: "متى نستخدم أداة التعريف \"the\" قبل أسماء الآلات الموسيقية؟", hint: "عند العزف على آلة موسيقية.", options: [
+        { text: "عندما نتحدث عن العزف على آلة موسيقية (مثل play the piano)", isCorrect: true, rationale: "صحيح! تسبق الآلات الموسيقية عند العزف." },
+        { text: "دائماً بدون شروط", isCorrect: false, rationale: "خطأ." },
+        { text: "لا تسبق الآلات أبداً", isCorrect: false, rationale: "خطأ." },
+        { text: "فقط مع الرياضات", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "هل نستخدم أدوات التعريف أو التنكير قبل أسماء اللغات ووجبات الطعام الرئيسية؟", hint: "تأتي بدون أدوات بشكل عام (Zero article).", options: [
+        { text: "لا، تحذف الأداة كلياً (Zero article) قبل اللغات والوجبات", isCorrect: true, rationale: "صحيح! نقول speak English و have lunch بدون أداة." },
+        { text: "نعم دائماً نضع the", isCorrect: false, rationale: "خطأ." },
+        { text: "نضع an دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "اختياري", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "في قواعد الحرف الكبير، هل تُكبّر الضمائر الشخصية المفردة مثل ضمير المتكلم \"I\" مهما كان موقعه في الجملة؟", hint: "ضمير المتكلم I شاذ ومميز.", options: [
+        { text: "نعم، ضمير المتكلم I يُكبّر دائماً أينما وجد في الجملة", isCorrect: true, rationale: "صحيح! I يكتب كبيراً دائماً في أي موضع." },
+        { text: "لا، فقط في أول الجملة", isCorrect: false, rationale: "خطأ." },
+        { text: "يكتب صغيراً في المنتصف", isCorrect: false, rationale: "خطأ." },
+        { text: "حسب المزاج", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "أسماء الشركات الكبرى والعلامات التجارية الشهيرة مثل (Microsoft, Google, Samsung) يجب أن تبدأ بـ:", hint: "أسماء خاصة Proper nouns.", options: [
+        { text: "حرف كبير دائماً (Capital letter)", isCorrect: true, rationale: "صحيح! أسماء الشركات والعلامات تُكبّر حرفها الأول." },
+        { text: "حرف صغير بالكامل", isCorrect: false, rationale: "خطأ." },
+        { text: "حسب رغبة الكاتب", isCorrect: false, rationale: "خطأ." },
+        { text: "تكتب بين قوسين بدون تكبير", isCorrect: false, rationale: "خطأ." }
+    ]},// --- الدفعة النهائية المكملة لتجاوز الـ 140 سؤالاً (الأسئلة من 93 إلى 145+) ---
+
+    // 1. استكمال أمثلة وقواعد أدوات التعريف (Using Articles)
+    { source: "Using Articles", question: "في القواعد: عند الإشارة إلى شيء فريد من نوعه ولا يوجد منه سوى واحد في الكون (مثل sun, moon, sky)، نستخدم أداة التعريف:", hint: "شيء فريد ومحدد عالمياً.", options: [
+        { text: "the (مثل: the sun, the sky)", isCorrect: true, rationale: "صحيح! الأشياء الفريدة من نوعها تتطلب دائماً أداة التعريف the." },
+        { text: "a", isCorrect: false, rationale: "خطأ." },
+        { text: "an", isCorrect: false, rationale: "خطأ." },
+        { text: "Zero article (بدون أداة)", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "في جملة: \"He is [__] honest man.\" الأداة المناسبة قبل كلمة honest هي:", hint: "حرف h صامت في كلمة honest والصوت يبدأ بمتحرك.", options: [
+        { text: "an (an honest man)", isCorrect: true, rationale: "صحيح! لأن حرف h صامت فننطق الصوت المتحرك أولاً فتأخذ an." },
+        { text: "a", isCorrect: false, rationale: "خطأ." },
+        { text: "the", isCorrect: false, rationale: "خطأ." },
+        { text: "بدون أداة", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "في جملة: \"She bought [__] European car.\" الأداة المناسبة هي:", hint: "لاحظ الصوت الأول المسموع عند نطق European.", options: [
+        { text: "a (a European car)", isCorrect: true, rationale: "صحيح! الكلمة تبدأ بصوت ساكن (ي/yoo) عند النطق فتأخذ a." },
+        { text: "an", isCorrect: false, rationale: "خطأ." },
+        { text: "the", isCorrect: false, rationale: "خطأ." },
+        { text: "بدون أداة", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "عند الحديث عن الأنهار والبحار والمحيطات (مثل Nile, Pacific Ocean)، القواعد تقتضي استخدام:", hint: "أسماء المسطحات المائية الكبرى.", options: [
+        { text: "the (مثل: The Nile River)", isCorrect: true, rationale: "صحيح! المسطحات المائية الكبرى كالأنهار والمحيطات تأخذ دائماً the." },
+        { text: "a", isCorrect: false, rationale: "خطأ." },
+        { text: "an", isCorrect: false, rationale: "خطأ." },
+        { text: "بدون أداة", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "قبل أسماء الجبال المنفردة أو البحيرات المنفردة (مثل Mount Everest, Lake Michigan):", hint: "تختلف عن سلاسل الجبال والبحار.", options: [
+        { text: "Zero Article (لا نستخدم أي أداة)", isCorrect: true, rationale: "صحيح! الجبال والبحيرات المنفردة لا تأخذ أداة تعريف." },
+        { text: "نستخدم the دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "نستخدم an", isCorrect: false, rationale: "خطأ." },
+        { text: "نستخدم a", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 2. استكمال أمثلة وقواعد الحرف الكبير (Capitalization 1)
+    { source: "Capitalization 1", question: "في العناوين والرتب العلمية والوظيفية (مثل Doctor, President): متى يُكتب الحرف الأول كبيراً؟", hint: "عندما يسبق اسم شخص محدد مباشرة.", options: [
+        { text: "عندما يأتي متبوعاً باسم الشخص (مثل: Doctor Smith)", isCorrect: true, rationale: "صحيح! اللقب يُكبّر فقط إذا جاء متبوعاً باسم خاص." },
+        { text: "دائماً في كل الحالات", isCorrect: false, rationale: "خطأ." },
+        { text: "لا يُكبّر أبداً", isCorrect: false, rationale: "خطأ." },
+        { text: "فقط إذا جاء في نهاية الجملة", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "أسماء المواد الدراسية والأكاديمية العامة (مثل math, biology, history):", hint: "تختلف عن أسماء اللغات والمواد المتبوعة برقم.", options: [
+        { text: "تُكتب بأحرف صغيرة إلا إذا كانت اسم لغة (English) أو متبوعة برقم محدد (Math 101)", isCorrect: true, rationale: "صحيح! المواد العامة لا تُكبّر إلا إذا كانت لغات أو دورات محددة برقم." },
+        { text: "تُكبّر دائماً بحرف كبير", isCorrect: false, rationale: "خطأ." },
+        { text: "تكتب كلها بحروف كبيرة", isCorrect: false, rationale: "خطأ." },
+        { text: "اختياري", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "عند اقتباس جملة كاملة داخل أقواس الاقتباس (Direct Quotation)، الحرف الأول من الاقتباس يجب أن يكون:", hint: "مثل بداية أي جملة جديدة.", options: [
+        { text: "حرفاً كبيراً (Capital letter)", isCorrect: true, rationale: "صحيح! أول حرف في الاقتباس المباشر الكامل يُكبّر." },
+        { text: "حرفاً صغيراً دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "حسب رغبة الكاتب", isCorrect: false, rationale: "خطأ." },
+        { text: "لا يهم", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "أسماء الأعياد والمناسبات الرسمية والتاريخية (مثل Eid Al-Fitr, New Year's Day):", hint: "تعتبر أسماء خاصة Proper Nouns.", options: [
+        { text: "تُكتب بحروف كبيرة (Capitalized)", isCorrect: true, rationale: "صحيح! أسماء الأعياد والمناسبات الرسمية هي Proper Nouns وتُكبّر." },
+        { text: "تُكتب بأحرف صغيرة", isCorrect: false, rationale: "خطأ." },
+        { text: "تُكبّر فقط الكلمة الثانية", isCorrect: false, rationale: "خطأ." },
+        { text: "لا توجد قاعدة", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 3. استكمال تمارين أنواع الجمل والوظائف (Sentence Types & Functions)
+    { source: "Sentence Types Worksheet", question: "جملة: \"Although it was very cold, he went out without a jacket.\" تصنف كـ:", hint: "تبدأ بعبارة تابعة بـ Although.", options: [
+        { text: "Complex Sentence (جملة معقدة)", isCorrect: true, rationale: "صحيح! تتكون من عبارة تابعة (Although...) وعبارة مستقلة." },
+        { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "جملة: \"She likes tea, but her sister prefers coffee.\" تصنف كـ:", hint: "جملتان مستقلتان مربوطتان بـ but وقبلها فاصلة.", options: [
+        { text: "Compound Sentence (جملة مركبة)", isCorrect: true, rationale: "صحيح! جملتان مستقلتان مربوطتان بأداة ربط تناسقية." },
+        { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Compound-Complex", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "أي من الجمل التالية يعتبر شبه جملة ناقصة (Sentence Fragment)؟", hint: "جملة غير مكتملة المعنى وتفتقد للفعل أو الفاعل المستقل.", options: [
+        { text: "When the train arrived at the station.", isCorrect: true, rationale: "صحيح! هذه عبارة تابعة فقط ولا تعطي معنى كاملاً فتعتبر Fragment." },
+        { text: "The train arrived late.", isCorrect: false, rationale: "خطأ، هذه جملة بسيطة مكتملة." },
+        { text: "She missed the train.", isCorrect: false, rationale: "خطأ." },
+        { text: "They waited for the train.", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "وظيفة الجملة الخبرية (Declarative Sentence) هي:", hint: "تخبر بمعلومة أو حقيقة.", options: [
+        { text: "Makes a statement / Gives information (تقديم خبر أو معلومة)", isCorrect: true, rationale: "صحيح! الجملة الخبرية تقدم معلومة وتنتهي بنقطة." },
+        { text: "Asks a question", isCorrect: false, rationale: "خطأ." },
+        { text: "Gives a command", isCorrect: false, rationale: "خطأ." },
+        { text: "Expresses strong emotion", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "وظيفة الجملة الأمرية (Imperative Sentence) هي:", hint: "إعطاء تعليمات أو أوامر.", options: [
+        { text: "Gives a command or request (إعطاء أمر أو طلب)", isCorrect: true, rationale: "صحيح! الجملة الأمرية تبدأ بفاعل مستتر وتوجه أمراً أو طلباً." },
+        { text: "Asks a question", isCorrect: false, rationale: "خطأ." },
+        { text: "Expresses strong emotion", isCorrect: false, rationale: "خطأ." },
+        { text: "Makes a statement", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 4. استكمال تمارين أقسام الكلام المتقدمة والقصص (8 Parts of Speech Exercises)
+    { source: "8 Parts of Speech Exercises", question: "في القواعد: الكلمة التي تصف الأفعال أو الصفات أو ظروفاً أخرى تُسمى:", hint: "مثل quickly, very, well.", options: [
+        { text: "Adverb (ظرف/حال)", isCorrect: true, rationale: "صحيح! الظرف يصف الفعل أو الصفة أو ظرفاً آخر." },
+        { text: "Adjective", isCorrect: false, rationale: "خطأ، الصفة تصف الأسماء فقط." },
+        { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+        { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech Exercises", question: "في جملة: \"This dress is extremely beautiful.\" كلمة \"extremely\" هي:", hint: "تصف درجة الصفة beautiful.", options: [
+        { text: "Adverb of degree (ظرف درجة)", isCorrect: true, rationale: "صحيح! extremely ظرف درجة يصف الصفة beautiful." },
+        { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+        { text: "Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Verb", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech Exercises", question: "في جملة: \"Alas! The injury was severe.\" كلمة \"Alas!\" تصنف كـ:", hint: "تعبير عن الحزن والأسى يتبعه (!).", options: [
+        { text: "Interjection (كلمة تعجب للحزن والأسى)", isCorrect: true, rationale: "صحيح! Alas تعبير تعجبي يفيد الحزن." },
+        { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+        { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+        { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech Exercises", question: "في جملة: \"Neither Sami nor Ali came to the school.\" العبارة \"Neither ... nor\" تصنف كـ:", hint: "أدوات ربط متلازمة معاً.", options: [
+        { text: "Correlative Conjunctions (أدوات ربط متلازمة)", isCorrect: true, rationale: "صحيح! Neither...nor أداة ربط متلازمة." },
+        { text: "Prepositions", isCorrect: false, rationale: "خطأ." },
+        { text: "Pronouns", isCorrect: false, rationale: "خطأ." },
+        { text: "Adverbs", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech Exercises", question: "في جملة: \"The student walked into the classroom.\" كلمة \"into\" تصنف كـ:", hint: "توضح الدخول والاتجاه إلى الداخل.", options: [
+        { text: "Preposition of movement/direction (حرف جر حركة/اتجاه)", isCorrect: true, rationale: "صحيح! into حرف جر يوضح الحركة والاتجاه للداخل." },
+        { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+        { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+        { text: "Verb", isCorrect: false, rationale: "خطأ." }
+    ]},// --- الدفعة الأخيرة والأخيرة المكملة لإنهاء بنك الأسئلة بالكامل (+140 سؤال) ---
+
+    // 1. استكمال أدوات التعريف (Using Articles - متفرقات)
+    { source: "Using Articles", question: "في القواعد: هل نستخدم أداة التعريف (the) قبل أسماء القارات والدول الفردية (مثل Asia, France)؟", hint: "أسماء الدول العادية لا تأخذ أداة.", options: [
+        { text: "لا، تحذف الأداة كلياً (Zero article) قبل أسماء القارات والدول العادية", isCorrect: true, rationale: "صحيح! أسماء القارات والدول العادية لا تسبق بـ the (ما لم تكن مجمعة أو لها اسم مركب مثل The USA)." },
+        { text: "نعم، دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "نعم، نستخدم an", isCorrect: false, rationale: "خطأ." },
+        { text: "اختياري", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "عندما نتحدث عن المؤسسات بأغراضها الأساسية مثل الذهاب للمدرسة للدراسة (go to school) أو السجن للسجن (go to prison):", hint: "الغرض الأساسي للمكان يحذف الأداة.", options: [
+        { text: "لا نستخدم أداة التعريف the قبلها (Zero Article)", isCorrect: true, rationale: "صحيح! إذا ذهب الشخص للغرض الأساسي للمكان (دراسة/علاج) تحذف the." },
+        { text: "نستخدم the دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "نستخدم an دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "نستخدم a", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "ولكن إذا ذهبت إلى المدرسة (the school) لغرض آخر غير الدراسة (مثل زيارة صديق أو إصلاح شيء):", hint: "هنا نخصص المكان لسبب ثانوي.", options: [
+        { text: "نعم، نستخدم أداة التعريف the لأننا نقصد مبنى محدداً لغرض فرعي", isCorrect: true, rationale: "صحيح! عند قصد المبنى نفسه لغرض ثانوي نستخدم the." },
+        { text: "نحذف الأداة دائماً", isCorrect: false, rationale: "خطأ." },
+        { text: "نستخدم a", isCorrect: false, rationale: "خطأ." },
+        { text: "نستخدم an", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 2. استكمال قواعد الحرف الكبير (Capitalization 1 - متفرقات)
+    { source: "Capitalization 1", question: "في عناوين الكتب والأفلام والمقالات، أي من الكلمات التالية يجب أن تُكتب بحرف كبير دائماً؟", hint: "الكلمات الأساسية كالفعل والاسم والصفة.", options: [
+        { text: "الكلمات الرئيسية مثل الأسماء والأفعال والصفات (Major words)", isCorrect: true, rationale: "صحيح! الكلمات الكبرى في العنوان تُكبّر حرفها الأول." },
+        { text: "جميع الكلمات بلا استثناء حتى حروف الجر الصغيرة", isCorrect: false, rationale: "خطأ، حروف الجر الصغيرة لا تكبر إلا إذا بدأت بها." },
+        { text: "الكلمة الأولى فقط في العنوان", isCorrect: false, rationale: "خطأ." },
+        { text: "الكلمة الأخيرة فقط", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "أسماء الكواكب الفلكية (مثل Mars, Jupiter, Venus): هل تُعتبر أسماء خاصة؟", hint: "نعم، كواكب المجموعة الشمسية أسماء محددة.", options: [
+        { text: "نعم، تُكتب دائماً بحرف كبير (Capitalized)", isCorrect: true, rationale: "صحيح! أسماء الكواكب تعتبر Proper nouns وتُكبّر." },
+        { text: "لا، تكتب بحرف صغير", isCorrect: false, rationale: "خطأ." },
+        { text: "فقط كوكب الأرض (Earth) يكبر", isCorrect: false, rationale: "خطأ، كلها تكبر." },
+        { text: "حسب السياق", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "متى نُكبّر كلمة (Earth) عندما تعني كوكب الأرض؟", hint: "عندما تُعامل كاسم كوكب فلكي خاص.", options: [
+        { text: "نعم، تُكبّر عندما تُذكر كاسم كوكب فلكي ضمن الكواكب", isCorrect: true, rationale: "صحيح! Earth تُكبر إذا قصد بها الكوكب، بينما تكتب صغيراً في الاستخدامات الترابية العادية كقاعدة عامة." },
+        { text: "لا تُكبّر أبداً", isCorrect: false, rationale: "خطأ." },
+        { text: "تكتب كلها بأحرف كبيرة", isCorrect: false, rationale: "خطأ." },
+        { text: "اختياري", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 3. استكمال أنواع الجمل ووظائفها (Sentence Types & Functions - متفرقات)
+    { source: "Sentence Types Worksheet", question: "جملة تحتوي على جملتين مستقلتين أو أكثر وجملة تابعة واحدة على الأقل تسمى:", hint: "مركبة ومعقدة معاً.", options: [
+        { text: "Compound-Complex Sentence (جملة مركبة ومعقدة)", isCorrect: true, rationale: "صحيح! تجمع بين خصائص الجملة المركبة والجملة المعقدة." },
+        { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Complex Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Fragment", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "الغرض الأساسي من الجملة الاستفهامية (Interrogative Sentence) في المحاضرات هو:", hint: "الحصول على معلومة وتنتهي بعلامة (؟).", options: [
+        { text: "To ask a question and get information (طرح سؤال للحصول على معلومة)", isCorrect: true, rationale: "صحيح! الجملة الاستفهامية تستفسر وتطرح سؤالاً." },
+        { text: "To give a command", isCorrect: false, rationale: "خطأ." },
+        { text: "To express surprise", isCorrect: false, rationale: "خطأ." },
+        { text: "To make a statement", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "الغرض الأساسي من الجملة التعجبية (Exclamatory Sentence) هو:", hint: "إظهار المشاعر القوية وتنتهي بعلامة (!).", options: [
+        { text: "To express strong emotion or surprise (التعبير عن مشاعر قوية أو دهشة)", isCorrect: true, rationale: "صحيح! الجملة التعجبية تظهر حماساً أو دهشة أو مشاعر قوية." },
+        { text: "To ask a question", isCorrect: false, rationale: "خطأ." },
+        { text: "To give an order", isCorrect: false, rationale: "خطأ." },
+        { text: "To state a fact", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 4. استكمال أقسام الكلام المتقدمة (8 Parts of Speech - متفرقات أخيرة)
+    { source: "8 Parts of Speech", question: "في قواعد أقسام الكلام: الكلمة التي تعبر عن إجراء أو حدث أو حالة (Action, event, or state of being) هي:", hint: "الركن الأساسي الذي بدونه لا تكتمل الجملة الفعلية.", options: [
+        { text: "Verb (الفعل)", isCorrect: true, rationale: "صحيح! الفعل هو الكلمة التي تدل على الحدث أو الحالة." },
+        { text: "Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+        { text: "Preposition", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الأفعال المساعدة: الأفعال (is, am, are, was, were) تسمى في القواعد بـ:", hint: "أفعال الكينونة.", options: [
+        { text: "Linking Verbs / To Be Verbs (أفعال الكينونة والربط)", isCorrect: true, rationale: "صحيح! أفعال الكينونة تربط الفاعل بصفته أو خبره." },
+        { text: "Action Verbs", isCorrect: false, rationale: "خطأ، تلك أفعال حركة." },
+        { text: "Modal Verbs", isCorrect: false, rationale: "خطأ." },
+        { text: "Conjunctions", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين الأفعال الناقصة (Modals): كلمات مثل (can, could, shall, should, will, would):", hint: "تسبق الأفعال الأساسية لتوضح القدرة أو الإلزام.", options: [
+        { text: "Modal Auxiliary Verbs (أفعال ناقصة مساعدة)", isCorrect: true, rationale: "صحيح! Modals أفعال مساعدة توضح القدرة أو الوجوب." },
+        { text: "Main Nouns", isCorrect: false, rationale: "خطأ." },
+        { text: "Prepositions", isCorrect: false, rationale: "خطأ." },
+        { text: "Adverbs", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين حروف العطف (Conjunctions): كلمات الربط التي تربط بين جملتين متساويتين في الأهمية (مثل and, but, or):", hint: "تسمى أدوات ربط التناسق.", options: [
+        { text: "Coordinating Conjunctions (أدوات ربط التناسق)", isCorrect: true, rationale: "صحيح!ordinating conjunctions تربط عناصر متساوية." },
+        { text: "Subordinating Conjunctions", isCorrect: false, rationale: "خطأ، هذه للجمل التابعة." },
+        { text: "Prepositions", isCorrect: false, rationale: "خطأ." },
+        { text: "Interjections", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في تمرين أدوات الربط المعقدة (Subordinating Conjunctions): كلمات مثل (because, although, if, since):", hint: "تربط بين جملة مستقلة وجملة تابعة.", options: [
+        { text: "Subordinating Conjunctions (أدوات ربط تابعة)", isCorrect: true, rationale: "صحيح! تبدأ بها الجمل التابعة وتربطها بالمستقلة." },
+        { text: "Coordinating Conjunctions", isCorrect: false, rationale: "خطأ." },
+        { text: "Proper Nouns", isCorrect: false, rationale: "خطأ." },
+        { text: "Interjections", isCorrect: false, rationale: "خطأ." }
+    ]},// --- الدفعة المكملة النهائية لتجاوز الـ 140 سؤالاً بالكامل ---
+
+    // 1. أسئلة وتطبيقات إضافية على أقسام الكلام (8 Parts of Speech)
+    { source: "8 Parts of Speech", question: "في جملة: \"The sudden noise startled everyone.\" ما تصنيف كلمة \"startled\"؟", hint: "تدل على الحدث والأثر الذي أحدثه الصوت.", options: [
+        { text: "Verb (فعل)", isCorrect: true, rationale: "صحيح! startled هو الفعل الأساسي في الجملة ويعبر عن الحدث." },
+        { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+        { text: "Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Adverb", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في جملة: \"The sudden noise startled everyone.\" ما تصنيف كلمة \"sudden\"؟", hint: "تصف طبيعة الصوت (noise).", options: [
+        { text: "Adjective (صفة)", isCorrect: true, rationale: "صحيح! sudden صفة تصف اسم الضوضاء noise." },
+        { text: "Adverb", isCorrect: false, rationale: "خطأ." },
+        { text: "Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Verb", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في جملة: \"They drove through the tunnel quickly.\" كلمة \"through\" تعتبر:", hint: "حرف يوضح حركة المرور داخل النفق.", options: [
+        { text: "Preposition (حرف جر)", isCorrect: true, rationale: "صحيح! through حرف جر يدل على الاتجاه والمكان." },
+        { text: "Conjunction", isCorrect: false, rationale: "خطأ." },
+        { text: "Verb", isCorrect: false, rationale: "خطأ." },
+        { text: "Noun", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في جملة: \"Bravo! You scored the winning goal.\" كلمة \"Bravo!\" هي:", hint: "تعبير تعجبي عن الثناء والتشجيع.", options: [
+        { text: "Interjection (كلمة تعجب)", isCorrect: true, rationale: "صحيح! Bravo تعبير تعجبي يظهر مشاعر التشجيع." },
+        { text: "Adjective", isCorrect: false, rationale: "خطأ." },
+        { text: "Verb", isCorrect: false, rationale: "خطأ." },
+        { text: "Adverb", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في جملة: \"Neither the teacher nor the students were late.\" الكلمتان \"Neither...nor\" تصنفان كـ:", hint: "أدوات ربط متلازمة للنفي.", options: [
+        { text: "Correlative Conjunctions (أدوات ربط متلازمة)", isCorrect: true, rationale: "صحيح! Neither...nor تستخدم لربط عنصرين في سياق النفي." },
+        { text: "Prepositions", isCorrect: false, rationale: "خطأ." },
+        { text: "Pronouns", isCorrect: false, rationale: "خطأ." },
+        { text: "Interjections", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 2. أسئلة إضافية على أنواع الجمل (Sentence Types and Functions)
+    { source: "Sentence Types Worksheet", question: "في تحديد أجزاء الجملة: \"Whenever I feel tired, I drink a cup of warm tea.\" ما نوع العبارة \"Whenever I feel tired\"؟", hint: "تبدأ بأداة ربط تابعة ولا تعطي معنى تاماً لوحدها.", options: [
+        { text: "Dependent Clause (عبارة تابعة)", isCorrect: true, rationale: "صحيح! عبارة تابعة لأنها تبدأ بـ Whenever وتعتمد على بقية الجملة." },
+        { text: "Independent Clause", isCorrect: false, rationale: "خطأ." },
+        { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Prepositional Phrase", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "في نفس الجملة السابقة: \"I drink a cup of warm tea\" تعتبر:", hint: "تعبر عن معنى مستقل كامل.", options: [
+        { text: "Independent Clause (عبارة مستقلة)", isCorrect: true, rationale: "صحيح! تعطي معنى تاماً وتتكون من فاعل وفعل." },
+        { text: "Dependent Clause", isCorrect: false, rationale: "خطأ." },
+        { text: "Fragment", isCorrect: false, rationale: "خطأ." },
+        { text: "Interjection", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "ما نوع الجملة كاملة: \"Whenever I feel tired, I drink a cup of warm tea\"؟", hint: "تتكون من عبارة تابعة وأخرى مستقلة.", options: [
+        { text: "Complex Sentence (جملة معقدة)", isCorrect: true, rationale: "صحيح! جملة معقدة لوجود عبارة تابعة ومستقلة." },
+        { text: "Simple Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Compound Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Compound-Complex", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "الجملة الآتية: \"Pass me the salt, please.\" تصنف بحسب وظيفتها كـ:", hint: "طلب أو أمر مؤدب.", options: [
+        { text: "Imperative Sentence (جملة أمرية/طلبية)", isCorrect: true, rationale: "صحيح! الجملة تعبر عن طلب/أمر مؤدب." },
+        { text: "Declarative Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Interrogative Sentence", isCorrect: false, rationale: "خطأ." },
+        { text: "Exclamatory Sentence", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 3. أسئلة إضافية على أدوات التعريف والتنكير (Using Articles)
+    { source: "Using Articles", question: "في جملة: \"She is [__] university student.\" الأداة الصحيحة هي:", hint: "انتبه للصوت الأول المسموع في الكلمة.", options: [
+        { text: "a (a university student)", isCorrect: true, rationale: "صحيح! لأن الصوت الأول المسموع هو صوت ساكن (ي/yoo)." },
+        { text: "an", isCorrect: false, rationale: "خطأ." },
+        { text: "the", isCorrect: false, rationale: "خطأ." },
+        { text: "Zero article", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "في جملة: \"He gave me [__] one-dollar bill.\" الأداة المناسبة هي:", hint: "ركز على نطق حرف o في كلمة one.", options: [
+        { text: "a (a one-dollar bill)", isCorrect: true, rationale: "صحيح! كلمة one تبدأ بصوت ساكن يشبه حرف W عند النطق فتأخذ a." },
+        { text: "an", isCorrect: false, rationale: "خطأ." },
+        { text: "the", isCorrect: false, rationale: "خطأ." },
+        { text: "Zero article", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Using Articles", question: "في جملة: \"[__] Sahara Desert is located in Africa.\" الأداة المناسبة قبل اسم الصحراء هي:", hint: "أسماء الصحارى الكبرى تأخذ أداة تعريف.", options: [
+        { text: "The (The Sahara Desert)", isCorrect: true, rationale: "صحيح! أسماء الصحارى الكبرى تُسبق دائماً بـ The." },
+        { text: "A", isCorrect: false, rationale: "خطأ." },
+        { text: "An", isCorrect: false, rationale: "خطأ." },
+        { text: "Zero article", isCorrect: false, rationale: "خطأ." }
+    ]},
+
+    // 4. أسئلة إضافية على قواعد الحرف الكبير (Capitalization)
+    { source: "Capitalization 1", question: "في جملة: \"we visited central park in new york last summer.\" التصحيح الإملائي والتكبير الصحيح للأسماء الخاصة هو:", hint: "أسماء الأماكن والمقاطعات تُكبّر.", options: [
+        { text: "We visited Central Park in New York last summer.", isCorrect: true, rationale: "صحيح! تكبير بداية الجملة، واسم الحديقة Central Park، واسم المدينة New York." },
+        { text: "we visited Central park in new York last Summer.", isCorrect: false, rationale: "خطأ." },
+        { text: "We visited central park in New York last Summer.", isCorrect: false, rationale: "خطأ." },
+        { text: "We Visited Central Park In New York Last Summer.", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "عند كتابة أيام الأسبوع والأشهر (مثل Friday, October):", hint: "تعتبر أسماء خاصة Proper Nouns.", options: [
+        { text: "تُكتب دائماً بحرف كبير (Capitalized)", isCorrect: true, rationale: "صحيح! الأيام والأشهر تُعتبر أسماء خاصة وتُكبّر دائماً." },
+        { text: "تُكتب بحرف صغير في منتصف الجملة", isCorrect: false, rationale: "خطأ." },
+        { text: "تُكبّر الأيام فقط دون الأشهر", isCorrect: false, rationale: "خطأ." },
+        { text: "تُكبّر الأشهر فقط دون الأيام", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Capitalization 1", question: "في كتابة عناوين الوظائف والألقاب الرسمية مثل (Mayor, Director): متى تُكتب بحرف صغير؟", hint: "عندما تأتي كاسم وظيفي عام بدون اسم شخص بعدها.", options: [
+        { text: "عندما تُذكر بشكل عام دون اتباعها باسم شخص محدد (مثل: The mayor gave a speech)", isCorrect: true, rationale: "صحيح! الألقاب تُكتب بحرف صغير إذا وردت بشكل عام بدون اسم علم." },
+        { text: "تُكبّر دائماً حتى بدون اسم", isCorrect: false, rationale: "خطأ." },
+        { text: "تُكتب بالكامل بحروف كبيرة", isCorrect: false, rationale: "خطأ." },
+        { text: "تُكبّر فقط في بداية الفقرة", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "8 Parts of Speech", question: "في جملة: \"The water in the pool is freezing!\" كلمة \"freezing\" هنا تعمل كـ:", hint: "تصف حالة درجة حرارة الماء.", options: [
+        { text: "Adjective (صفة)", isCorrect: true, rationale: "صحيح! freezing صفة تصف اسم الماء water." },
+        { text: "Noun", isCorrect: false, rationale: "خطأ." },
+        { text: "Preposition", isCorrect: false, rationale: "خطأ." },
+        { text: "Conjunction", isCorrect: false, rationale: "خطأ." }
+    ]},
+    { source: "Sentence Types Worksheet", question: "في جملة: \"Look out!\" الجملة تعتبر متكاملة إعرابياً لأن الفاعل فيها هو:", hint: "ضمير مستتر تقديره أنت.", options: [
+        { text: "Implied Subject (الفاعل المستتر 'You')", isCorrect: true, rationale: "صحيح! جمل الأمر والتحذير يكون فاعلها مستتراً تقديره You." },
+        { text: "Look", isCorrect: false, rationale: "خطأ، هذا فعل." },
+        { text: "Out", isCorrect: false, rationale: "خطأ، هذا ظرف/حرف." },
+        { text: "لا يوجد فاعل إطلاقاً", isCorrect: false, rationale: "خطأ." }
+    ]}];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('hint-box').classList.add('hidden');
+            document.getElementById('explanation-box').classList.add('hidden');
+            
+            const q = allQuizData[currentQuestion];
+            document.getElementById('question-number').innerText = `السؤال ${currentQuestion + 1} من ${allQuizData.length}`;
+            document.getElementById('lecture-source').innerText = `المصدر: ${q.source}`;
+            document.getElementById('question-text').innerText = q.question;
+            document.getElementById('hint-box').innerText = `💡 تلميح: ${q.hint}`;
+            
+            const progress = ((currentQuestion) / allQuizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('score-tracker').innerText = `النتيجة الحالية: ${score} من ${allQuizData.length}`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-right p-4 rounded-xl border border-slate-700 bg-slate-800/80 hover:border-indigo-500 hover:bg-slate-700/60 transition font-medium text-slate-200 cursor-pointer flex items-center justify-between";
+                btn.innerHTML = `<span>${opt.text}</span><span class="w-7 h-7 rounded-full border border-slate-600 bg-slate-900 flex items-center justify-center text-xs text-slate-400 font-bold">${String.fromCharCode(65 + index)}</span>`;
+                btn.onclick = () => selectOption(opt, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function toggleHint() {
+            document.getElementById('hint-box').classList.toggle('hidden');
+        }
+
+        function selectOption(selectedOpt, selectedBtn) {
+            if (answered) return;
+            answered = true;
+
+            const q = allQuizData[currentQuestion];
+            const buttons = document.getElementById('options-container').children;
+
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+                const optData = q.options[i];
+                if (optData.isCorrect) {
+                    buttons[i].className = "w-full text-right p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/40 text-emerald-200 font-bold flex items-center justify-between";
+                } else if (buttons[i] === selectedBtn) {
+                    buttons[i].className = "w-full text-right p-4 rounded-xl border-2 border-rose-500 bg-rose-950/40 text-rose-200 font-bold flex items-center justify-between";
+                }
+            }
+
+            if (selectedOpt.isCorrect) {
+                score++;
+            }
+
+            const expBox = document.getElementById('explanation-box');
+            expBox.classList.remove('hidden');
+            if (selectedOpt.isCorrect) {
+                expBox.className = "mb-6 p-4 rounded-xl text-sm border bg-emerald-950/50 border-emerald-700 text-emerald-200 leading-relaxed";
+                expBox.innerHTML = `<strong>إجابة صحيحة! 🎉</strong><br>${selectedOpt.rationale}`;
+            } else {
+                expBox.className = "mb-6 p-4 rounded-xl text-sm border bg-rose-950/50 border-rose-700 text-rose-200 leading-relaxed";
+                expBox.innerHTML = `<strong>إجابة غير صحيحة ❌</strong><br>${selectedOpt.rationale}`;
+            }
+
+            document.getElementById('score-tracker').innerText = `النتيجة الحالية: ${score} من ${allQuizData.length}`;
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < allQuizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resScreen = document.getElementById('result-screen');
+            resScreen.classList.remove('hidden');
+            document.getElementById('progress-bar').style.width = '100%';
+            
+            const percentage = Math.round((score / allQuizData.length) * 100);
+            document.getElementById('score-text').innerText = `لقد أتممت الاختبار الشامل بنجاح بنتيجة ${score} من أصل ${allQuizData.length} سؤالاً (${percentage}%)`;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
